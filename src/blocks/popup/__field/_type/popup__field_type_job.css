@@ -1,0 +1,8 @@
+.popup__field_type_job {
+}
+
+@media screen and (max-width: 600px) {
+  .popup__field_type_job {
+    margin-top: 30px;
+  }
+}

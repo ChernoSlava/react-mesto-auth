@@ -1,0 +1,25 @@
+.header__burger-btn {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  background: url(../../../images/BurgerMenu.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border: transparent;
+  cursor: pointer;
+  transition: opacity 0.4s ease-out;
+}
+
+.header__burger-btn:focus {
+  opacity: 0.6;
+}
+
+.header__burger-btn:hover {
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 768px) {
+  .header__burger-btn {
+    visibility: hidden;
+  }
+}

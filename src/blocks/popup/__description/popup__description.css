@@ -1,0 +1,12 @@
+.popup__description {
+  max-width: 358px;
+  font-family: "Inter", Arial, sans-serif;
+  font-style: normal;
+  font-size: 24px;
+  color: #000000;
+  text-align: center;
+  margin: 0 auto;
+  font-weight: 900;
+  line-height: 29px;
+  margin-top: 32px;
+}

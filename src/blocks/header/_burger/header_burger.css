@@ -1,0 +1,6 @@
+@media screen and (min-width: 768px) {
+  .header_burger {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+}
