@@ -30,6 +30,7 @@ function App() {
   const [isConfirmPopupOpen, setConfirmPopupOpen] = useState(false);
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [cards, setCards] = useState([]);
   const history = useHistory();
@@ -52,6 +53,7 @@ function App() {
   }, []);
 
   function handlerUpdateUser(data) {
+    setIsLoading(true);
     api
       .setUserInfoToServer(data)
       .then((data) => {
@@ -60,10 +62,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api
       .setUserAvatarToServer(data)
       .then((data) => {
@@ -72,6 +78,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -92,6 +101,8 @@ function App() {
 
   function handleCardDelete(e) {
     e.preventDefault();
+
+    setIsLoading(true);
     api
       .deleteCard(cardForDelete._id)
       .then(() => {
@@ -101,10 +112,14 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleAddPlaceSubmit(data) {
+    setIsLoading(true);
     api
       .postCard(data)
       .then((newCard) => {
@@ -113,6 +128,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -161,8 +179,8 @@ function App() {
     const token = localStorage.getItem("jwt");
     auth
       .checkToken(token)
-      .then((data) => {
-        setAuthorizatUserEmail(data.data.email);
+      .then((res) => {
+        setAuthorizatUserEmail(res.data.email);
         setLoggedIn(true);
         history.push("/");
       })
@@ -184,22 +202,24 @@ function App() {
       .registration(data)
       .then(() => {
         setIsSignUpSuccess(true);
-        handleInfoTooltipOpen();
         history.push("/sign-in");
       })
       .catch((err) => {
         setIsSignUpSuccess(false);
-        handleInfoTooltipOpen();
         console.log(err);
+      })
+      .finally(() => {
+        handleInfoTooltipOpen();
       });
   }
 
-  function handleAuthorization(data) {
+  function handleAuthorization(values) {
     auth
-      .authorization(data)
+      .authorization(values)
       .then((data) => {
         setLoggedIn(true);
         localStorage.setItem("jwt", data.token);
+        setAuthorizatUserEmail(values.email);
         history.push("/");
       })
       .catch((err) => {
@@ -219,10 +239,7 @@ function App() {
             <Register onRegistration={handleRegistration} />
           </Route>
           <Route path="/sign-in">
-            <Login
-              onAuthorization={handleAuthorization}
-              onCheckToken={handleCheckToken}
-            />
+            <Login onAuthorization={handleAuthorization} />
           </Route>
           <ProtectedRoute
             path="/"
@@ -243,24 +260,28 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handlerUpdateUser}
+          isLoading={isLoading}
         />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
+          isLoading={isLoading}
         />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          isLoading={isLoading}
         />
 
         <ConfirmPopup
           isOpen={isConfirmPopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
+          isLoading={isLoading}
         />
         <ImagePopup
           card={selectedCard}

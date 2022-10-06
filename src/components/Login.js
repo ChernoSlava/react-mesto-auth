@@ -1,19 +1,9 @@
 import React from "react";
-import { useState } from "react";
+
+import { useForm } from "../hooks/useForm";
 
 export default function Login({ onAuthorization }) {
-  const [values, setValues] = useState({});
-
-  const handleChange = (evt) => {
-    const target = evt.target;
-    const name = target.name;
-    const value = target.value;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
+  const { values, handleChange } = useForm({});
 
   function handleSubmit(evt) {
     evt.preventDefault();
@@ -32,6 +22,7 @@ export default function Login({ onAuthorization }) {
           autoComplete="off"
           type="email"
           required
+          value={values.email || ""}
         ></input>
         <input
           className="auth__input second"
@@ -41,6 +32,7 @@ export default function Login({ onAuthorization }) {
           type="password"
           onChange={handleChange}
           required
+          value={values.password || ""}
         ></input>
         <button className="button auth__button-submit" type="submit">
           Войти

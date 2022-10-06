@@ -55,7 +55,7 @@ function Card({ card, onCardClick, onCardLike, onCardForDelete }) {
             name="heart"
             className={cardLikeButtonClassName}
             value=" "
-          ></button>
+          />
           <p className="element__number">{card.likes.length}</p>
         </div>
       </div>

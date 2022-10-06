@@ -11,35 +11,39 @@ class Auth {
     return Promise.reject(`Что-то упало: ${res.status}`);
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._checkMainResponse);
+  }
+
   registration(data) {
-    return fetch(`${this._url}/signup`, {
+    return this._request(`${this._url}/signup`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         password: data.password,
         email: data.email,
       }),
-    }).then(this._checkMainResponse);
+    });
   }
 
   authorization(data) {
-    return fetch(`${this._url}/signin`, {
+    return this._request(`${this._url}/signin`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         password: data.password,
         email: data.email,
       }),
-    }).then(this._checkMainResponse);
+    });
   }
   checkToken(token) {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: "GET",
       headers: {
         ...this._headers,
         Authorization: `Bearer ${token}`,
       },
-    }).then(this._checkMainResponse);
+    });
   }
 }
 

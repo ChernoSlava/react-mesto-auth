@@ -1,8 +1,13 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 import PopupWithForm from "./PopupWithForm";
 
-export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
+export default function EditAvatarPopup({
+  onUpdateAvatar,
+  isOpen,
+  onClose,
+  isLoading,
+}) {
   const avatarRef = useRef("");
 
   function handleSubmit(e) {
@@ -11,8 +16,12 @@ export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
-    avatarRef.current.value = "";
   }
+
+  useEffect(() => {
+    avatarRef.current.value = "";
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name="avatar"
@@ -20,7 +29,7 @@ export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
       isOpen={isOpen}
       onClose={onClose}
       btnClass="avatar"
-      buttonText="Сохранить"
+      buttonText={isLoading ? "Сохранение..." : "Сохранить"}
       onSubmit={handleSubmit}
     >
       <fieldset className="popup__set">

@@ -29,7 +29,7 @@ function Main({
             className="profile__avatar-btn"
             type="button"
             onClick={onEditAvatar}
-          ></button>
+          />
         </div>
 
         <div className="profile__info">
@@ -41,13 +41,13 @@ function Main({
           >
             <img src={profileBtn} alt="Кнопка редактирования" />
           </button>
-          <p className="profile__subtitle">{currentUser.description}</p>
+          <p className="profile__subtitle">{currentUser.about}</p>
         </div>
         <button
           type="button"
           className="profile__add-button"
           onClick={onAddPlace}
-        ></button>
+        />
       </section>
       <section>
         <ul className="elements">

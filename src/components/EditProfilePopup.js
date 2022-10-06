@@ -4,7 +4,12 @@ import PopupWithForm from "./PopupWithForm";
 
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+export default function EditProfilePopup({
+  isOpen,
+  onClose,
+  onUpdateUser,
+  isLoading,
+}) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState("");
@@ -39,7 +44,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
       isOpen={isOpen}
       onClose={onClose}
       btnClass="profile-btn"
-      buttonText="Сохранить"
+      buttonText={isLoading ? "Сохранение..." : "Сохранить"}
       onSubmit={handleSubmit}
     >
       <fieldset className="popup__set">

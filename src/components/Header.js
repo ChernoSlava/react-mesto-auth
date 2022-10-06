@@ -16,7 +16,7 @@ export default function Header({ loggedIn, onSingOut, authorizatUserEmail }) {
     onSingOut();
   }
 
-  let location = useLocation();
+  const location = useLocation();
 
   return (
     <header className={loggedIn ? "header header_burger" : "header"}>
@@ -28,9 +28,7 @@ export default function Header({ loggedIn, onSingOut, authorizatUserEmail }) {
               : "header__container"
           }
         >
-          <address className="header__address">
-            {authorizatUserEmail && authorizatUserEmail}
-          </address>
+          <address className="header__address">{authorizatUserEmail}</address>
           <button
             className="header__exitBtn"
             type="button"

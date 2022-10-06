@@ -2,10 +2,11 @@ import React from "react";
 
 import successIco from "../images/InfoPopupWork.svg";
 import notSuccessIco from "../images/InfoPopupDon'tWork.svg";
+import Popup from "./Popup";
 
 export default function InfoTooltip({ isOpen, onClose, isSuccess }) {
   return (
-    <div className={`popup Info-popup ${isOpen && "popup_opened"}`}>
+    <Popup isOpen={isOpen} onClose={onClose}>
       <div className={`popup__container container`}>
         <button
           type="button"
@@ -25,6 +26,9 @@ export default function InfoTooltip({ isOpen, onClose, isSuccess }) {
             : "Что-то пошло не так! Пропробуйте ещё раз."}
         </h3>
       </div>
-    </div>
+    </Popup>
+    // <div className={`popup Info-popup ${isOpen && "popup_opened"}`}>
+
+    // </div>
   );
 }

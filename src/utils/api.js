@@ -11,12 +11,16 @@ class Api {
     return Promise.reject(`Что-то упало: ${res.status}`);
   }
 
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse);
+  }
+
   setUserAvatarToServer(avatar) {
-    return fetch(`${this._url}/users/me/avatar`, {
+    return this._request(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(avatar),
-    }).then(this._checkResponse);
+    });
   }
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
@@ -27,40 +31,40 @@ class Api {
   }
 
   deleteLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
+    return this._request(`${this._url}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   doLike(id) {
-    return fetch(`${this._url}/cards/${id}/likes`, {
+    return this._request(`${this._url}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   deleteCard(id) {
-    return fetch(`${this._url}/cards/${id}`, {
+    return this._request(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   postCard(data) {
-    return fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    });
   }
 
   setUserInfoToServer(data) {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify(data),
-    }).then(this._checkResponse);
+    });
   }
 
   getInitialCards() {
@@ -68,17 +72,17 @@ class Api {
   }
 
   getCards() {
-    return fetch(`${this._url}/cards`, {
+    return this._request(`${this._url}/cards`, {
       method: "GET",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 
   getUserInfoFromServer() {
-    return fetch(`${this._url}/users/me`, {
+    return this._request(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
   }
 }
 

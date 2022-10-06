@@ -1,5 +1,7 @@
 import React from "react";
 
+import Popup from "./Popup";
+
 export default function PopupWithForm({
   name,
   isOpen,
@@ -12,20 +14,19 @@ export default function PopupWithForm({
   onSubmit,
 }) {
   return (
-    <div className={`popup ${name}-popup ${isOpen && "popup_opened"}`}>
+    <Popup isOpen={isOpen} name={name} onClose={onClose}>
       <div className={`popup__container container ${container}`}>
         <p className="popup__title">{title}</p>
-        <button
-          type="button"
-          className="popup__close-icon"
-          onClick={onClose}
-        ></button>
         <form
           className={`popup__form ${name}-form`}
           name={name}
-          // noValidate
           onSubmit={onSubmit}
         >
+          <button
+            type="button"
+            className="popup__close-icon"
+            onClick={onClose}
+          />
           {children}
           <button
             type="submit"
@@ -35,6 +36,6 @@ export default function PopupWithForm({
           </button>
         </form>
       </div>
-    </div>
+    </Popup>
   );
 }
