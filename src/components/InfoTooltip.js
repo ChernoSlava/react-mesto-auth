@@ -27,8 +27,5 @@ export default function InfoTooltip({ isOpen, onClose, isSuccess }) {
         </h3>
       </div>
     </Popup>
-    // <div className={`popup Info-popup ${isOpen && "popup_opened"}`}>
-
-    // </div>
   );
 }
